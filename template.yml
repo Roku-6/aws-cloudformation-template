@@ -1,0 +1,26 @@
+Transform: 'AWS::Serverless-2016-10-31'
+Description: leap-dashboard-api-yml
+Resources:
+  pingfunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.pingHandler
+      FunctionName: PingFunction
+      CodeUri: dist/
+      Runtime: nodejs16.x
+      Description: 'PingFunction'
+      MemorySize: 128
+      Timeout: 30
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-*****************
+        SubnetIds:
+          - subnet-*****************
+          - subnet-*****************
+          - subnet-*****************
+      Events:
+        getusersapi:
+          Type: Api
+          Properties:
+            Path: '/ping'
+            Method: get
